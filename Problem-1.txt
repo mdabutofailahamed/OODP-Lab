@@ -1,0 +1,63 @@
+// Interface 1: Animal
+interface Animal {
+    void eat();
+    void sleep();
+}
+
+// Interface 2: Pet
+interface Pet {
+    void play();
+}
+
+// Class implementing both Animal and Pet interfaces
+class Dog implements Animal, Pet {
+    @Override
+    public void eat() {
+        System.out.println("Dog is eating.");
+    }
+
+    @Override
+    public void sleep() {
+        System.out.println("Dog is sleeping.");
+    }
+
+    @Override
+    public void play() {
+        System.out.println("Dog is playing fetch.");
+    }
+}
+
+class Cat implements Animal, Pet {
+    @Override
+    public void eat() {
+        System.out.println("Cat is eating.");
+    }
+
+    @Override
+    public void sleep() {
+        System.out.println("Cat is sleeping.");
+    }
+
+    @Override
+    public void play() {
+        System.out.println("Cat is playing with a ball of yarn.");
+    }
+}
+
+// Main class to test functionality
+public class MultipleInterfaceDemo {
+    public static void main(String[] args) {
+        Dog myDog = new Dog();
+        Cat myCat = new Cat();
+        
+        System.out.println("Dog's Activities:");
+        myDog.eat();
+        myDog.sleep();
+        myDog.play();
+        
+        System.out.println("\nCat's Activities:");
+        myCat.eat();
+        myCat.sleep();
+        myCat.play();
+    }
+}
