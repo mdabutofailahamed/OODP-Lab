@@ -1,0 +1,157 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+// Base class for all pets
+class Pet {
+    protected String name;
+    protected int age;
+    protected String breed;
+    protected String ownerName;
+
+    public Pet(String name, int age, String breed, String ownerName) {
+        this.name = name;
+        this.age = age;
+        this.breed = breed;
+        this.ownerName = ownerName;
+    }
+
+    public void displayInfo() {
+        System.out.println("Pet Name: " + name);
+        System.out.println("Age: " + age);
+        System.out.println("Breed: " + breed);
+        System.out.println("Owner: " + ownerName);
+    }
+}
+
+// Subclass for Dog
+class Dog extends Pet {
+    private String barkSound;
+
+    public Dog(String name, int age, String breed, String ownerName, String barkSound) {
+        super(name, age, breed, ownerName);
+        this.barkSound = barkSound;
+    }
+
+    @Override
+    public void displayInfo() {
+        super.displayInfo();
+        System.out.println("Bark Sound: " + barkSound);
+    }
+}
+
+// Subclass for Cat
+class Cat extends Pet {
+    private String furColor;
+
+    public Cat(String name, int age, String breed, String ownerName, String furColor) {
+        super(name, age, breed, ownerName);
+        this.furColor = furColor;
+    }
+
+    @Override
+    public void displayInfo() {
+        super.displayInfo();
+        System.out.println("Fur Color: " + furColor);
+    }
+}
+
+// Management System for Pets
+class PetManagementSystem {
+    private ArrayList<Pet> petList = new ArrayList<>();
+
+    public void addPet(Pet pet) {
+        petList.add(pet);
+        System.out.println("Pet added successfully!");
+    }
+
+    public void displayAllPets() {
+        if (petList.isEmpty()) {
+            System.out.println("No pets found!");
+        } else {
+            for (Pet pet : petList) {
+                pet.displayInfo();
+                System.out.println("------------------");
+            }
+        }
+    }
+
+    public void searchPetByName(String name) {
+        for (Pet pet : petList) {
+            if (pet.name.equalsIgnoreCase(name)) {
+                pet.displayInfo();
+                return;
+            }
+        }
+        System.out.println("Pet not found!");
+    }
+}
+
+// Main Class to run the system
+public class PetManagementApp {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        PetManagementSystem petSystem = new PetManagementSystem();
+
+        while (true) {
+            System.out.println("\nPet Management System");
+            System.out.println("1. Add Dog");
+            System.out.println("2. Add Cat");
+            System.out.println("3. Display All Pets");
+            System.out.println("4. Search Pet by Name");
+            System.out.println("5. Exit");
+            System.out.print("Choose an option: ");
+            int choice = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter Dog Name: ");
+                    String dName = scanner.nextLine();
+                    System.out.print("Enter Age: ");
+                    int dAge = scanner.nextInt();
+                    scanner.nextLine();
+                    System.out.print("Enter Breed: ");
+                    String dBreed = scanner.nextLine();
+                    System.out.print("Enter Owner Name: ");
+                    String dOwner = scanner.nextLine();
+                    System.out.print("Enter Bark Sound: ");
+                    String dBark = scanner.nextLine();
+                    petSystem.addPet(new Dog(dName, dAge, dBreed, dOwner, dBark));
+                    break;
+
+                case 2:
+                    System.out.print("Enter Cat Name: ");
+                    String cName = scanner.nextLine();
+                    System.out.print("Enter Age: ");
+                    int cAge = scanner.nextInt();
+                    scanner.nextLine();
+                    System.out.print("Enter Breed: ");
+                    String cBreed = scanner.nextLine();
+                    System.out.print("Enter Owner Name: ");
+                    String cOwner = scanner.nextLine();
+                    System.out.print("Enter Fur Color: ");
+                    String cFur = scanner.nextLine();
+                    petSystem.addPet(new Cat(cName, cAge, cBreed, cOwner, cFur));
+                    break;
+
+                case 3:
+                    petSystem.displayAllPets();
+                    break;
+
+                case 4:
+                    System.out.print("Enter Pet Name to Search: ");
+                    String searchName = scanner.nextLine();
+                    petSystem.searchPetByName(searchName);
+                    break;
+
+                case 5:
+                    System.out.println("Exiting system...");
+                    scanner.close();
+                    return;
+
+                default:
+                    System.out.println("Invalid choice! Try again.");
+            }
+        }
+    }
+}
